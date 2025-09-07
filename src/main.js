@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+import GUI from 'lil-gui';
+
+const gui = new GUI();
 const palette = [
   0x88ccff, // light blue
   0xcc3333, // red
@@ -170,7 +173,12 @@ async function loadHouseWithNames() {
       const sectionGroup = new THREE.Group();
       sectionGroup.add(mesh);
       sectionGroup.add(line);
+
       subgroup.add(sectionGroup);
+
+      // Add toggle in GUI for this section
+      const folder = gui.addFolder(partName); // one folder per group
+      folder.add(sectionGroup, 'visible').name(meshData.name);
     });
 
     group.add(subgroup);

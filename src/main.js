@@ -63,41 +63,7 @@ grid.material.opacity = 0.3; grid.material.transparent = true;
 scene.add(grid);
 
 
-// Build Geometry V_01
-
-// load JSON and build geometry
-async function loadHouse() {
-  const res = await fetch('./house01.json');
-  const data = await res.json();
-
-  // expand triangle faces into a non-indexed position buffer
-  const positions = [];
-  for (const face of data.faces) {
-    for (const idx of face) {
-      const v = data.vertices[idx];
-      positions.push(v[0], v[1], v[2]);
-    }
-  }
-
-  const geom = new THREE.BufferGeometry();
-  geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-  geom.computeVertexNormals();
-
-  const mat = new THREE.MeshStandardMaterial({
-    color: 0x88ccff, metalness: 0.05, roughness: 0.9
-  });
-
-  const mesh = new THREE.Mesh(geom, mat);
-  scene.add(mesh);
-
-  // subtle outline
-  const edges = new THREE.EdgesGeometry(geom);
-  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.3, transparent: true }));
-  scene.add(line);
-}
-//loadHouse();
-
-// Build Geometry_02
+// Build Geommetry
 
 async function loadHouseWithNames() {
   const response = await fetch("house.json");

@@ -31,7 +31,7 @@ document.body.appendChild(renderer.domElement);
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// scene.add(cube);
 
 camera.position.z = 5;
 
@@ -112,6 +112,15 @@ async function loadHouseWithNames() {
     const subgroup = new THREE.Group();
     subgroup.name = partName;
 
+    // 🔹 Assign ONE random color for this entire group
+    const groupColor = randomColor();
+
+    // Add a folder for this part group
+    const folder = gui.addFolder(partName);
+
+    // 🔹 Master toggle for the whole subgroup
+    folder.add(subgroup, 'visible').name(`Show ${partName}`);
+
     meshes.forEach((meshData) => {
       const geometry = new THREE.BufferGeometry();
 
@@ -147,7 +156,7 @@ async function loadHouseWithNames() {
 
       // Material with random color + low opacity
       const material = new THREE.MeshStandardMaterial({
-        color: randomColor(),
+        color: groupColor,
         metalness: 0.05,
         roughness: 0.9,
         transparent: true,
@@ -171,17 +180,19 @@ async function loadHouseWithNames() {
 
       // Group both mesh and outline together
       const sectionGroup = new THREE.Group();
+      sectionGroup.name = meshData.name;
       sectionGroup.add(mesh);
       sectionGroup.add(line);
 
       subgroup.add(sectionGroup);
 
-      // Add toggle in GUI for this section
-      const folder = gui.addFolder(partName); // one folder per group
+      // 🔹 Toggle for this section
       folder.add(sectionGroup, 'visible').name(meshData.name);
+      
     });
 
     group.add(subgroup);
+
   }
 
   scene.add(group);

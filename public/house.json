@@ -1,0 +1,32 @@
+{
+  "vertices": {
+    "A": [-1, 0, -1],
+    "B": [ 1, 0, -1],
+    "C": [ 1, 0,  1],
+    "D": [-1, 0,  1],
+    "E": [-1, 1, -1],
+    "F": [ 1, 1, -1],
+    "G": [ 1, 1,  1],
+    "H": [-1, 1,  1],
+    "R1": [ 0, 1.6, -1],
+    "R2": [ 0, 1.6,  1]
+  },
+  "parts": {
+    "walls": [
+      { "name": "front", "faces": [ ["A","B","F"], ["A","F","E"] ] },
+      { "name": "back",  "faces": [ ["D","C","G"], ["D","G","H"] ] },
+      { "name": "left",  "faces": [ ["A","D","H"], ["A","H","E"] ] },
+      { "name": "right", "faces": [ ["B","C","G"], ["B","G","F"] ] }
+    ],
+    "roof": [
+      { "name": "gableFront", "faces": [ ["E","F","R1"] ] },
+      { "name": "gableBack",  "faces": [ ["H","G","R2"] ] },
+      { "name": "slopeLeft",  "faces": [ ["E","H","R2"], ["E","R2","R1"] ] },
+      { "name": "slopeRight", "faces": [ ["F","G","R2"], ["F","R2","R1"] ] }
+    ],
+    "floor": [
+      { "name": "ground", "faces": [ ["A","B","C"], ["A","C","D"] ] }
+    ]
+  }
+}
+

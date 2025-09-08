@@ -19,23 +19,26 @@ function randomColor() {
   return palette[Math.floor(Math.random() * palette.length)];
 }
 
+
+// Ste the Scene and the Camera
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0b1020);
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
 
+// Scene's renderer
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setAnimationLoop(animate2);
 document.body.appendChild(renderer.domElement);
 
+// Teste Geommetry
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 // scene.add(cube);
 
-camera.position.z = 5;
-
-// resize
+// Resize window
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -57,13 +60,13 @@ scene.add(dir);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-// optional grid
+// optional extra grid
 const grid = new THREE.GridHelper(20, 20, 0x334455, 0x223344);
 grid.material.opacity = 0.3; grid.material.transparent = true;
 scene.add(grid);
 
 
-// Build Geommetry
+// Build House Geommetry
 
 async function loadHouseWithNames() {
   const response = await fetch("house.json");
